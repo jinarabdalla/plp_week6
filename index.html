@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SpendWise helps you plan a budget and track expenses.">
+  <title>SpendWise | Interactive Budget Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="SpendWise home"><span class="brand-mark">S</span> SpendWise</a>
+    <span class="header-note">Your money, with a plan.</span>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">PERSONAL FINANCE DASHBOARD</p>
+        <h1>Make every shilling <span>count.</span></h1>
+        <p class="welcome-copy">Set your monthly budget, record expenses, and see where your money goes.</p>
+      </div>
+      <div class="date-chip" id="today-date">Your budget overview</div>
+    </section>
+
+    <section class="panel budget-panel" aria-labelledby="budget-heading">
+      <div class="section-heading">
+        <div><p class="eyebrow">STEP 1</p><h2 id="budget-heading">Set your monthly budget</h2></div>
+      </div>
+      <form id="budget-form" class="budget-form">
+        <label for="budget-input">Monthly budget (KSh)</label>
+        <div class="budget-entry">
+          <input id="budget-input" name="budget" type="number" min="0.01" step="0.01" placeholder="e.g. 20000" required>
+          <button class="button button-primary" type="submit">Save budget</button>
+        </div>
+        <p class="field-hint">Enter the total amount you plan to spend this month.</p>
+      </form>
+    </section>
+
+    <section class="summary-grid" aria-label="Budget summary">
+      <article class="summary-card budget-card">
+        <span class="summary-label">Monthly budget</span>
+        <p class="summary-value" id="budget-total">KSh 0.00</p>
+        <span class="summary-note">Your spending limit</span>
+      </article>
+      <article class="summary-card spent-card">
+        <span class="summary-label">Total spent</span>
+        <p class="summary-value" id="spent-total">KSh 0.00</p>
+        <span class="summary-note">All recorded expenses</span>
+      </article>
+      <article class="summary-card remaining-card">
+        <span class="summary-label">Money remaining</span>
+        <p class="summary-value" id="remaining-total">KSh 0.00</p>
+        <span class="summary-note" id="remaining-note">Set a budget to get started</span>
+      </article>
+    </section>
+
+    <section class="panel progress-panel" aria-labelledby="progress-heading">
+      <div class="progress-top">
+        <div><p class="eyebrow">BUDGET HEALTH</p><h2 id="progress-heading">Spending progress</h2></div>
+        <strong id="progress-percent">0%</strong>
+      </div>
+      <div class="progress-track" role="progressbar" aria-label="Budget used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <p id="budget-message" class="status-message" role="status">Set a monthly budget and add your first expense.</p>
+    </section>
+
+    <div class="content-grid">
+      <section class="panel add-panel" aria-labelledby="expense-heading">
+        <div class="section-heading">
+          <div><p class="eyebrow">STEP 2</p><h2 id="expense-heading">Add an expense</h2></div>
+        </div>
+        <form id="expense-form">
+          <div class="form-field">
+            <label for="expense-name">Expense name</label>
+            <input id="expense-name" name="expenseName" type="text" maxlength="70" placeholder="e.g. Groceries" required>
+          </div>
+          <div class="form-field">
+            <label for="expense-amount">Amount (KSh)</label>
+            <input id="expense-amount" name="amount" type="number" min="0.01" step="0.01" placeholder="e.g. 850" required>
+          </div>
+          <div class="form-field">
+            <label for="expense-category">Category</label>
+            <select id="expense-category" name="category" required>
+              <option value="">Choose a category</option>
+              <option>Food</option><option>Transport</option><option>Housing</option>
+              <option>Utilities</option><option>Education</option><option>Health</option>
+              <option>Shopping</option><option>Entertainment</option><option>Other</option>
+            </select>
+          </div>
+          <button class="button button-primary button-full" type="submit">+ Add expense</button>
+          <p class="form-feedback" id="form-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="panel expenses-panel" aria-labelledby="expenses-heading">
+        <div class="expenses-heading">
+          <div><p class="eyebrow">STEP 3</p><h2 id="expenses-heading">Your expenses</h2></div>
+          <span class="count-badge" id="expense-count">0 records</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Expense</th><th scope="col">Category</th><th scope="col">Amount</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+            <tbody id="expense-list">
+              <tr class="empty-row"><td colspan="4">No expenses yet. Add one using the form.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="expense-footer">
+          <span id="table-total-label">Total expenses</span>
+          <strong id="table-total">KSh 0.00</strong>
+        </div>
+        <button class="button button-quiet" id="clear-expenses" type="button">Clear all expenses</button>
+      </section>
+    </div>
+
+    <p class="privacy-note"><span aria-hidden="true">🔒</span> Your records are saved in this browser on this device.</p>
+  </main>
+  <footer class="site-footer">SpendWise <span>•</span> Spend thoughtfully. Save confidently.</footer>
+</body>
+</html>
